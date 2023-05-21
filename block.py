@@ -3,7 +3,7 @@ import pygame
 
 class Block:
 
-    def __init__(self, color, pos, dead_sides, picture=None):
+    def __init__(self, color, pos, hitbox: pygame.Rect, picture=None):
         if picture:
             self.sprite = pygame.image.load(picture).convert_alpha()
         else:
@@ -11,8 +11,8 @@ class Block:
             self.sprite.fill(color)
         self.pos = pos
         self.color = color
-        self.dead_sides = dead_sides
         self.rect = self.sprite.get_rect().move(pos)
+        self.hitbox = hitbox
 
     def move(self, game_speed):
         self.pos.x -= game_speed
@@ -26,12 +26,12 @@ class Block:
 
     def collide_dead(self, sides):
         for index, side in enumerate(sides):
-            if side and self.dead_sides[index]:
+            if side and self.hitbox[index]:
                 return True
         return False
 
     def is_dead_side(self, side):
-        return self.dead_sides[side]
+        return self.hitbox[side]
 
     def get_sides(self):
         rect = self.rect

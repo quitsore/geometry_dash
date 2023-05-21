@@ -11,6 +11,7 @@ class Game:
         self.player = Player()
         self.level = Level()
         self.background = pygame.surface.Surface([800, 600])
+        self.background.fill((0, 0, 255))
 
         self.is_work = True
         self.gravity = 4
